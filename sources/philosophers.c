@@ -1,9 +1,16 @@
-# include "philosophers.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/22 18:03:20 by dvan-der          #+#    #+#             */
+/*   Updated: 2022/03/22 18:21:20 by dvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// arguments: number_of_philosophers, time_to_die, time_to_eat, time_to_sleep
-// and (optional) number_of_times_each_philophers_must_eat.
-
-
+#include "philosophers.h"
 
 int	philosophers(char **argv)
 {
@@ -12,8 +19,8 @@ int	philosophers(char **argv)
 	rules = init_all(argv);
 	if (!rules)
 		return (EXIT_FAILURE);
-	if (play_game)
+	if (play_game(rules))
 		return (EXIT_FAILURE);
+	system("leaks philo");
 	return (EXIT_SUCCESS);
 }
-

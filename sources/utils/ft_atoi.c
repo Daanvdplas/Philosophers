@@ -6,15 +6,23 @@
 /*   By: dvan-der <dvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 08:23:16 by dvan-der          #+#    #+#             */
-/*   Updated: 2021/12/15 08:23:23 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:26:26 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
+static int	check_if_int(long nbr)
+{
+	if (nbr > 2147483647 || nbr < -2147483648)
+		return (-1);
+	else
+		return ((int)nbr);
+}
+
 int	ft_atoi(const char *str)
 {
-	int		nbr;
+	long	nbr;
 	int		p_n;
 	size_t	i;
 
@@ -37,5 +45,5 @@ int	ft_atoi(const char *str)
 			return (ERROR);
 		i++;
 	}
-	return (nbr * p_n);
+	return (check_if_int(nbr * p_n));
 }

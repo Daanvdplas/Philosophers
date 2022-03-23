@@ -11,6 +11,9 @@ VPATH		:=	$(subst $(space),:,$(shell find $(SRCS_DIR) -type d))
 MAIN		:=	main.c
 export SRCS	:= 	philosophers.c \
 				init_all.c \
+				play_game.c \
+				time.c \
+				philo_utils.c \
 				ft_putendl_fd.c \
 				ft_calloc.c \
 			  	ft_atoi.c \

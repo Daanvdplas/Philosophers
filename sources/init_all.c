@@ -1,12 +1,26 @@
-# include "philosophers.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_all.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/22 18:03:34 by dvan-der          #+#    #+#             */
+/*   Updated: 2022/03/22 18:20:47 by dvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "philosophers.h"
+
+// Input must be an integer otherwise incorrect input. In addition,
+// programm shouldn't be able to handle more than 200 threads/philos.
 static int	check_input(t_rules *rules, bool flag)
 {
-	if (rules->nbr_of_philo < 2 ||
-		rules->nbr_of_philo > 200 ||
-		rules->time_to_die < 0 ||
-		rules->time_to_eat < 0 ||
-		rules->time_to_sleep < 0)
+	if (rules->nbr_of_philo < 2
+		|| rules->nbr_of_philo > 200
+		|| rules->time_to_die < 0
+		|| rules->time_to_eat < 0
+		|| rules->time_to_sleep < 0)
 	{
 		free(rules);
 		return (EXIT_FAILURE);
@@ -19,6 +33,8 @@ static int	check_input(t_rules *rules, bool flag)
 	return (EXIT_SUCCESS);
 }
 
+// Convert input strings to integers. Nbr_of_meals is unspecified
+// when there is are only 4 arguments given.
 static int	init_rules(char **argv, t_rules *rules)
 {
 	bool	flag;
@@ -42,6 +58,7 @@ static int	init_rules(char **argv, t_rules *rules)
 	return (EXIT_SUCCESS);
 }
 
+// Create the mutex variables.
 static int	init_mutex(t_rules *rules)
 {
 	pthread_mutex_t	*forks;
@@ -58,13 +75,18 @@ static int	init_mutex(t_rules *rules)
 		i++;
 	}
 	rules->forks = forks;
-	if (pthread_mutex_init(&(rules->to_write), NULL))
+	if (pthread_mutex_init(&(rules->write_lock), NULL))
 		return (EXIT_FAILURE);
-	if (pthread_mutex_init(&(rules->to_eat), NULL))
+	if (pthread_mutex_init(&(rules->eat_lock), NULL))
+		return (EXIT_FAILURE);
+	if (pthread_mutex_init(&(rules->time_lock), NULL))
+		return (EXIT_FAILURE);
+	if (pthread_mutex_init(&(rules->game_over_lock), NULL))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
+// Define some variables/rules for the game.
 static int	init_philos(t_rules *rules)
 {
 	t_philo	*philo;
@@ -78,7 +100,7 @@ static int	init_philos(t_rules *rules)
 	{
 		philo[i].id = i + 1;
 		philo[i].x_eaten = 0;
-		philo[i].left_fork = i + 1;
+		philo[i].left_fork = i;
 		philo[i].right_fork = (i + 1) % rules->nbr_of_philo;
 		philo[i].last_meal = 0;
 		philo[i].rules = rules;
@@ -88,15 +110,16 @@ static int	init_philos(t_rules *rules)
 	return (EXIT_SUCCESS);
 }
 
+// Initialize the rules, mutexes and philosophers.
 t_rules	*init_all(char **argv)
 {
-	t_rules *rules;
+	t_rules	*rules;
 
 	rules = (t_rules *)malloc(sizeof(t_rules));
 	if (!rules)
-		return (NULL);	
+		return (NULL);
 	if (init_rules(argv, rules))
-		return (NULL);	
+		return (NULL);
 	if (init_mutex(rules))
 		return (NULL);
 	if (init_philos(rules))

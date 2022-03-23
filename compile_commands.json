@@ -1,0 +1,274 @@
+[
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "main.c",
+   "-I./includes",
+   "-o",
+   "objects/main.o"
+  ],
+  "file": "main.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/philosophers.c",
+   "-I./includes",
+   "-o",
+   "objects/philosophers.o"
+  ],
+  "file": "sources/philosophers.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/init_all.c",
+   "-I./includes",
+   "-o",
+   "objects/init_all.o"
+  ],
+  "file": "sources/init_all.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/play_game.c",
+   "-I./includes",
+   "-o",
+   "objects/play_game.o"
+  ],
+  "file": "sources/play_game.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/time.c",
+   "-I./includes",
+   "-o",
+   "objects/time.o"
+  ],
+  "file": "sources/time.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils.c",
+   "-I./includes",
+   "-o",
+   "objects/utils.o"
+  ],
+  "file": "sources/utils.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils/ft_putendl_fd.c",
+   "-I./includes",
+   "-o",
+   "objects/ft_putendl_fd.o"
+  ],
+  "file": "sources/utils/ft_putendl_fd.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils/ft_calloc.c",
+   "-I./includes",
+   "-o",
+   "objects/ft_calloc.o"
+  ],
+  "file": "sources/utils/ft_calloc.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils/ft_atoi.c",
+   "-I./includes",
+   "-o",
+   "objects/ft_atoi.o"
+  ],
+  "file": "sources/utils/ft_atoi.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils/ft_putchar_fd.c",
+   "-I./includes",
+   "-o",
+   "objects/ft_putchar_fd.o"
+  ],
+  "file": "sources/utils/ft_putchar_fd.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils/ft_putstr_fd.c",
+   "-I./includes",
+   "-o",
+   "objects/ft_putstr_fd.o"
+  ],
+  "file": "sources/utils/ft_putstr_fd.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils/ft_bzero.c",
+   "-I./includes",
+   "-o",
+   "objects/ft_bzero.o"
+  ],
+  "file": "sources/utils/ft_bzero.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils/ft_check_malloc.c",
+   "-I./includes",
+   "-o",
+   "objects/ft_check_malloc.o"
+  ],
+  "file": "sources/utils/ft_check_malloc.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils/ft_strlen.c",
+   "-I./includes",
+   "-o",
+   "objects/ft_strlen.o"
+  ],
+  "file": "sources/utils/ft_strlen.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils/ft_isdigit.c",
+   "-I./includes",
+   "-o",
+   "objects/ft_isdigit.o"
+  ],
+  "file": "sources/utils/ft_isdigit.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils/ft_strlcpy.c",
+   "-I./includes",
+   "-o",
+   "objects/ft_strlcpy.o"
+  ],
+  "file": "sources/utils/ft_strlcpy.c"
+ },
+ {
+  "directory": "/Users/dvan-der/Documents/CODAM/Philosophers",
+  "arguments": [
+   "gcc",
+   "-c",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "sources/utils/ft_free_char_array.c",
+   "-I./includes",
+   "-o",
+   "objects/ft_free_char_array.o"
+  ],
+  "file": "sources/utils/ft_free_char_array.c"
+ }
+]

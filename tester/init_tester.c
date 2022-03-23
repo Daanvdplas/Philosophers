@@ -57,8 +57,9 @@ static void	test_shitandforks(int nbr)
 	{
 		TEST_ASSERT_EQUAL_INT(i + 1, rules->philo[i].id);
 		TEST_ASSERT_EQUAL_INT(0, rules->philo[i].x_eaten);
-		TEST_ASSERT_EQUAL_INT(i + 1, rules->philo[i].left_fork);
-		TEST_ASSERT_EQUAL_INT((i + 1) % (rules->nbr_of_philo + 1), rules->philo[i].right_fork);
+		TEST_ASSERT_EQUAL_INT(i, rules->philo[i].left_fork);
+		TEST_ASSERT_EQUAL_INT((i + 1) % rules->nbr_of_philo,
+								rules->philo[i].right_fork);
 		TEST_ASSERT_EQUAL_INT(0, rules->philo[i].last_meal);
 		TEST_ASSERT_NOT_NULL(rules->philo[i].rules);
 		i++;
@@ -123,7 +124,29 @@ TEST(test_input, test6)
 	test_shitandforks(rules->nbr_of_philo);
 }
 
+TEST(test_input, test7)
+{
+	init_test("4", "600", "200", "300", "4");
+	TEST_ASSERT_NOT_NULL(rules);
+	TEST_ASSERT_EQUAL_INT(4, rules->nbr_of_philo);
+	TEST_ASSERT_EQUAL_INT(600, rules->time_to_die);
+	TEST_ASSERT_EQUAL_INT(200, rules->time_to_eat);
+	TEST_ASSERT_EQUAL_INT(300, rules->time_to_sleep);
+	TEST_ASSERT_EQUAL_INT(4, rules->nbr_of_meals);
+	test_shitandforks(rules->nbr_of_philo);
+}
 
+TEST(test_input, test8)
+{
+	init_test("4", "500", "200", "200", "1");
+	TEST_ASSERT_NOT_NULL(rules);
+	TEST_ASSERT_EQUAL_INT(4, rules->nbr_of_philo);
+	TEST_ASSERT_EQUAL_INT(500, rules->time_to_die);
+	TEST_ASSERT_EQUAL_INT(200, rules->time_to_eat);
+	TEST_ASSERT_EQUAL_INT(200, rules->time_to_sleep);
+	TEST_ASSERT_EQUAL_INT(1, rules->nbr_of_meals);
+	test_shitandforks(rules->nbr_of_philo);
+}
 TEST_GROUP_RUNNER(test_input)
 {
 	RUN_TEST_CASE(test_input, test1);
@@ -132,5 +155,6 @@ TEST_GROUP_RUNNER(test_input)
 	RUN_TEST_CASE(test_input, test4);
 	RUN_TEST_CASE(test_input, test5);
 	RUN_TEST_CASE(test_input, test6);
+	RUN_TEST_CASE(test_input, test7);
 }
 
