@@ -6,7 +6,7 @@
 /*   By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 18:03:34 by dvan-der          #+#    #+#             */
-/*   Updated: 2022/03/22 18:20:47 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:02:55 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // programm shouldn't be able to handle more than 200 threads/philos.
 static int	check_input(t_rules *rules, bool flag)
 {
-	if (rules->nbr_of_philo < 2
+	if (rules->nbr_of_philo < 1
 		|| rules->nbr_of_philo > 200
 		|| rules->time_to_die < 0
 		|| rules->time_to_eat < 0

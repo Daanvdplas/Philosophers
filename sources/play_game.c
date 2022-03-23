@@ -6,7 +6,7 @@
 /*   By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:35:42 by dvan-der          #+#    #+#             */
-/*   Updated: 2022/03/23 09:28:35 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:36:54 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	game_checker(t_rules *rules)
 	bool		game_over;
 
 	philo = rules->philo;
-	check_if_game_over(rules, &game_over);
+	game_over = check_if_game_over(rules);
 	while (!game_over)
 	{
 		i = 0;
@@ -53,35 +53,9 @@ static void	game_checker(t_rules *rules)
 		}
 		if (all_philos_ate(philo, rules))
 			break ;
-		check_if_game_over(rules, &game_over);
+		usleep(100);
+		game_over = check_if_game_over(rules);
 	}
-	return ;
-}
-
-// Here a philo will eats when picking up his two forks next to him.
-static void	philo_eat(t_philo *philo)
-{
-	t_rules	*rules;
-	bool	game_over;
-
-	rules = philo->rules;
-	pthread_mutex_lock(&rules->forks[philo->left_fork]);
-	action_print(LEFT_FORK, philo);
-	pthread_mutex_lock(&rules->forks[philo->right_fork]);
-	check_if_game_over(philo->rules, &game_over);
-	if (game_over)
-		return ;
-	action_print(RIGHT_FORK, philo);
-	pthread_mutex_lock(&rules->eat_lock);
-	pthread_mutex_lock(&rules->time_lock);
-	philo->last_meal = get_time();
-	pthread_mutex_unlock(&rules->time_lock);
-	pthread_mutex_unlock(&rules->eat_lock);
-	action_print(EAT, philo);
-	pause_func(rules->time_to_eat, rules);
-	pthread_mutex_unlock(&rules->forks[philo->right_fork]);
-	pthread_mutex_unlock(&rules->forks[philo->left_fork]);
-	philo->x_eaten++;
 	return ;
 }
 
@@ -97,17 +71,16 @@ static void	*a_philo(void *void_philo)
 	rules = philo->rules;
 	if (philo->id % 2)
 		pause_func(rules->time_to_eat, rules);
-	check_if_game_over(rules, &game_over);
+	game_over = check_if_game_over(rules);
 	while (!game_over)
 	{
 		action_print(THINK, philo);
-		philo_eat(philo);
-		check_if_game_over(rules, &game_over);
-		if (game_over)
+		philo_eat(philo, philo->rules);
+		if (check_if_game_over(rules))
 			break ;
 		action_print(SLEEP, philo);
 		pause_func(rules->time_to_sleep, rules);
-		check_if_game_over(rules, &game_over);
+		game_over = check_if_game_over(rules);
 	}
 	return (NULL);
 }	

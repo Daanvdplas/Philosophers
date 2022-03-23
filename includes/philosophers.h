@@ -6,7 +6,7 @@
 /*   By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 09:02:55 by dvan-der          #+#    #+#             */
-/*   Updated: 2022/03/23 09:07:16 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:42:57 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <pthread.h>
 # include "utils.h"
 
+# define STOP 0
 # define UNSPECIFIED -2
 # define SLEEP 3
 # define EAT 4
@@ -69,6 +70,7 @@ int			all_philos_ate(t_philo *philo, t_rules *rules);
 int			a_philo_died(t_philo philo, t_rules *rules);
 void		pause_func(int pause_t, t_rules *rules);
 void		action_print(int type, t_philo *philo);
-void		check_if_game_over(t_rules *rules, bool *x);
+bool		check_if_game_over(t_rules *rules);
+void		philo_eat(t_philo *philo, t_rules *rules);
 
 #endif

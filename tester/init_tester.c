@@ -147,6 +147,20 @@ TEST(test_input, test8)
 	TEST_ASSERT_EQUAL_INT(1, rules->nbr_of_meals);
 	test_shitandforks(rules->nbr_of_philo);
 }
+
+TEST(test_input, test9)
+{
+	init_test("1", "600", "200", "200", "4");
+	TEST_ASSERT_NOT_NULL(rules);
+	TEST_ASSERT_EQUAL_INT(1, rules->nbr_of_philo);
+	TEST_ASSERT_EQUAL_INT(600, rules->time_to_die);
+	TEST_ASSERT_EQUAL_INT(200, rules->time_to_eat);
+	TEST_ASSERT_EQUAL_INT(200, rules->time_to_sleep);
+	TEST_ASSERT_EQUAL_INT(4, rules->nbr_of_meals);
+	test_shitandforks(rules->nbr_of_philo);
+	TEST_ASSERT_EQUAL_INT(rules->philo->left_fork, rules->philo->right_fork);
+}
+
 TEST_GROUP_RUNNER(test_input)
 {
 	RUN_TEST_CASE(test_input, test1);
@@ -156,5 +170,7 @@ TEST_GROUP_RUNNER(test_input)
 	RUN_TEST_CASE(test_input, test5);
 	RUN_TEST_CASE(test_input, test6);
 	RUN_TEST_CASE(test_input, test7);
+	RUN_TEST_CASE(test_input, test8);
+	RUN_TEST_CASE(test_input, test9);
 }
 

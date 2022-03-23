@@ -14,6 +14,7 @@ export SRCS	:= 	philosophers.c \
 				play_game.c \
 				time.c \
 				philo_utils.c \
+				philo_eat.c \
 				ft_putendl_fd.c \
 				ft_calloc.c \
 			  	ft_atoi.c \
