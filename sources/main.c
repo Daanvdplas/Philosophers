@@ -6,7 +6,7 @@
 /*   By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 18:02:31 by dvan-der          #+#    #+#             */
-/*   Updated: 2022/03/22 18:02:38 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/03/23 17:15:40 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int	main(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 	{
-		ft_putendl_fd("Sorry, you gave too little arguments", 2);
+		printf("Sorry, you gave too little arguments\n");
 		return (EXIT_FAILURE);
 	}
 	else if (argc == 5 || argc == 6)
 	{
 		if (philosophers(argv))
 		{
-			ft_putendl_fd("Sorry, you gave incorrect arguments", 2);
+			printf("Sorry, you gave incorrect arguments\n");
 			return (EXIT_FAILURE);
 		}
 	}

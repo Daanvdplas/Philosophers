@@ -6,7 +6,7 @@
 /*   By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 09:02:55 by dvan-der          #+#    #+#             */
-/*   Updated: 2022/03/23 16:42:57 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/03/28 09:14:06 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 # define PHILOSOPHERS_H
 
 # include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include <stdbool.h>
 # include <sys/time.h>
 # include <pthread.h>
-# include "utils.h"
 
 # define STOP 0
+# define ERROR -1
 # define UNSPECIFIED -2
 # define SLEEP 3
 # define EAT 4
@@ -38,6 +40,7 @@ typedef struct s_philo
 	int					left_fork;
 	int					right_fork;
 	long long			last_meal;
+	bool				finished;
 	struct s_rules		*rules;
 }	t_philo;
 
@@ -71,6 +74,6 @@ int			a_philo_died(t_philo philo, t_rules *rules);
 void		pause_func(int pause_t, t_rules *rules);
 void		action_print(int type, t_philo *philo);
 bool		check_if_game_over(t_rules *rules);
-void		philo_eat(t_philo *philo, t_rules *rules);
-
+int			ft_isdigit(int c);
+int			ft_atoi(const char *str);
 #endif

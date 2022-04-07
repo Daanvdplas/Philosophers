@@ -6,11 +6,11 @@
 /*   By: dvan-der <dvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 08:23:16 by dvan-der          #+#    #+#             */
-/*   Updated: 2022/03/22 17:26:26 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/03/24 15:38:14 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "philosophers.h"
 
 static int	check_if_int(long nbr)
 {

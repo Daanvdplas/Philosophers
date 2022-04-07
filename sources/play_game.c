@@ -6,7 +6,7 @@
 /*   By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:35:42 by dvan-der          #+#    #+#             */
-/*   Updated: 2022/03/23 16:36:54 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/03/28 09:26:50 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,26 @@ static void	exit_game(t_rules *rules)
 {
 	int	i;
 
-	free(rules->forks);
 	i = 0;
 	while (i < rules->nbr_of_philo)
 	{
-		pthread_join(rules->philo[i].thread_id, NULL);
+		pthread_mutex_lock(&rules->game_over_lock);
+		if (rules->philo[i].finished)
+			i++;
+		pthread_mutex_unlock(&rules->game_over_lock);
+	}
+	i = 0;
+	while (i < rules->nbr_of_philo)
+	{
 		pthread_mutex_destroy(&(rules->forks[i]));
+		pthread_join(rules->philo[i].thread_id, NULL);
 		i++;
 	}
 	pthread_mutex_destroy(&rules->write_lock);
 	pthread_mutex_destroy(&rules->eat_lock);
+	pthread_mutex_destroy(&rules->time_lock);
+	pthread_mutex_destroy(&rules->game_over_lock);
+	free(rules->forks);
 	free(rules->philo);
 	free(rules);
 	return ;
@@ -38,11 +48,9 @@ static void	game_checker(t_rules *rules)
 {
 	int			i;
 	t_philo		*philo;
-	bool		game_over;
 
 	philo = rules->philo;
-	game_over = check_if_game_over(rules);
-	while (!game_over)
+	while (1)
 	{
 		i = 0;
 		while (i < rules->nbr_of_philo)
@@ -54,8 +62,33 @@ static void	game_checker(t_rules *rules)
 		if (all_philos_ate(philo, rules))
 			break ;
 		usleep(100);
-		game_over = check_if_game_over(rules);
 	}
+	return ;
+}
+
+// Here a philo will eats when picking up his two forks next to him.
+static void	philo_eat(t_philo *philo, t_rules *rules)
+{
+	pthread_mutex_lock(&rules->forks[philo->left_fork]);
+	action_print(LEFT_FORK, philo);
+	if (philo->left_fork == philo->right_fork)
+	{
+		pthread_mutex_unlock(&rules->forks[philo->left_fork]);
+		pause_func(rules->time_to_die, rules);
+		return ;
+	}
+	pthread_mutex_lock(&rules->forks[philo->right_fork]);
+	action_print(RIGHT_FORK, philo);
+	action_print(EAT, philo);
+	pthread_mutex_lock(&rules->time_lock);
+	philo->last_meal = get_time();
+	pthread_mutex_unlock(&rules->time_lock);
+	pause_func(rules->time_to_eat, rules);
+	pthread_mutex_unlock(&rules->forks[philo->left_fork]);
+	pthread_mutex_unlock(&rules->forks[philo->right_fork]);
+	pthread_mutex_lock(&rules->eat_lock);
+	philo->x_eaten++;
+	pthread_mutex_unlock(&rules->eat_lock);
 	return ;
 }
 
@@ -65,23 +98,23 @@ static void	*a_philo(void *void_philo)
 {
 	t_philo	*philo;
 	t_rules	*rules;
-	bool	game_over;
 
 	philo = (t_philo *)void_philo;
 	rules = philo->rules;
 	if (philo->id % 2)
 		pause_func(rules->time_to_eat, rules);
-	game_over = check_if_game_over(rules);
-	while (!game_over)
+	while (1)
 	{
 		action_print(THINK, philo);
 		philo_eat(philo, philo->rules);
-		if (check_if_game_over(rules))
-			break ;
 		action_print(SLEEP, philo);
 		pause_func(rules->time_to_sleep, rules);
-		game_over = check_if_game_over(rules);
+		if (check_if_game_over(rules))
+			break ;
 	}
+	pthread_mutex_lock(&philo->rules->game_over_lock);
+	philo->finished = true;
+	pthread_mutex_unlock(&philo->rules->game_over_lock);
 	return (NULL);
 }	
 
@@ -93,9 +126,7 @@ int	play_game(t_rules *rules)
 	int		i;
 
 	philo = rules->philo;
-	pthread_mutex_lock(&rules->time_lock);
 	rules->start_time = get_time();
-	pthread_mutex_unlock(&rules->time_lock);
 	i = 0;
 	while (i < rules->nbr_of_philo)
 	{

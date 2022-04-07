@@ -6,11 +6,11 @@
 /*   By: dvan-der <dvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 08:23:00 by dvan-der          #+#    #+#             */
-/*   Updated: 2021/12/15 08:23:01 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/03/24 15:38:35 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "philosophers.h"
 
 int	ft_isdigit(int c)
 {

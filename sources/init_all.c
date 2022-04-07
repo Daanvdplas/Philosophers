@@ -6,7 +6,7 @@
 /*   By: dvan-der <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 18:03:34 by dvan-der          #+#    #+#             */
-/*   Updated: 2022/03/23 14:02:55 by dvan-der         ###   ########.fr       */
+/*   Updated: 2022/03/28 09:15:42 by dvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,18 @@ static int	init_rules(char **argv, t_rules *rules)
 }
 
 // Create the mutex variables.
-static int	init_mutex(t_rules *rules)
+static int	init_mutex(t_rules *rules, int *i)
 {
 	pthread_mutex_t	*forks;
-	int				i;
 
 	forks = malloc(rules->nbr_of_philo * sizeof(pthread_mutex_t));
 	if (!forks)
 		return (EXIT_FAILURE);
-	i = 0;
-	while (i < rules->nbr_of_philo)
+	while (*i < rules->nbr_of_philo)
 	{
-		if (pthread_mutex_init(&(forks[i]), NULL))
+		if (pthread_mutex_init(&(forks[*i]), NULL))
 			return (EXIT_FAILURE);
-		i++;
+		(*i)++;
 	}
 	rules->forks = forks;
 	if (pthread_mutex_init(&(rules->write_lock), NULL))
@@ -103,6 +101,7 @@ static int	init_philos(t_rules *rules)
 		philo[i].left_fork = i;
 		philo[i].right_fork = (i + 1) % rules->nbr_of_philo;
 		philo[i].last_meal = 0;
+		philo[i].finished = false;
 		philo[i].rules = rules;
 		i++;
 	}
@@ -114,14 +113,26 @@ static int	init_philos(t_rules *rules)
 t_rules	*init_all(char **argv)
 {
 	t_rules	*rules;
+	int		i;
+	int		i_fork_error;
 
 	rules = (t_rules *)malloc(sizeof(t_rules));
 	if (!rules)
 		return (NULL);
 	if (init_rules(argv, rules))
 		return (NULL);
-	if (init_mutex(rules))
+	i = 0;
+	if (init_mutex(rules, &i))
+	{
+		i_fork_error = i;
+		i = 0;
+		while (i < i_fork_error)
+		{
+			pthread_mutex_destroy(&(rules->forks[i]));
+			i++;
+		}
 		return (NULL);
+	}
 	if (init_philos(rules))
 		return (NULL);
 	return (rules);
